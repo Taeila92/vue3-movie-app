@@ -13,7 +13,7 @@ export default {
   getters: {},
   // methods
   // 변이
-  mutations: {
+  mutations: { //commit 
     updateState(state, payload){
       // ['movies', 'message', 'loading']
       Object.keys(payload).forEach(key => {
@@ -37,15 +37,15 @@ export default {
 
       try{
         const res = await _fetchMovie({
-          ...payload,
+          ...payload, 
           page: 1
         })
         const {Search, totalResults} = res.data
         commit('updateState',{
           movies: _uniqBy(Search, 'imdbID')
         })
-        console.log(totalResults) // 274
-        console.log(typeof totalResults) // string
+        // console.log(totalResults) 268
+        // console.log(typeof totalResults) string
   
         const total = parseInt(totalResults, 10)
         const pageLength = Math.ceil(total / 10)
@@ -62,7 +62,7 @@ export default {
             commit('updateState',{
               movies: [
                 ...state.movies,
-                ..._uniqBy(Search, 'imdbID')
+                ..._uniqBy(Search, 'imdbID') //lodash _uniqBy([배열], 속성이름) 중복제거
               ]
             })
           }
@@ -87,7 +87,6 @@ export default {
       })
       try {
         const res = await _fetchMovie(payload)
-        console.log(res.data)
         commit('updateState', {
           theMovie: res.data
         })
@@ -103,7 +102,7 @@ export default {
     }
   }
 }
-
+// _ movie.js 내부에서만 사용한다는 의미
 function _fetchMovie(payload) {
   const {title, type, year, page, id} = payload
   const OMDB_API_KEY = '7035c60c'
