@@ -7,6 +7,9 @@ export default createRouter({
   //hash
   // http://google.com/#/search
   history: createWebHashHistory(),
+  scrollBehavior() {
+    return { top : 0 }
+  },
   // routes = pages 구분
   //https://google.com/About
   routes:[
